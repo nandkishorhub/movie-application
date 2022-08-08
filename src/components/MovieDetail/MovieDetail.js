@@ -7,6 +7,7 @@ import {
   getMovieOrShowDetails,
   removeMovieOrShowDetail,
 } from "../../features/movies/movieSlice";
+import Loader from "../Loader/Loader";
 import "./MovieDetail.scss";
 
 const MovieDetail = () => {
@@ -16,6 +17,7 @@ const MovieDetail = () => {
 
   useEffect(() => {
     dispatch(fetchMovieOrShowDetailAsync(imdbID));
+    console.log("Useffect Movie detail");
     return () => {
       dispatch(removeMovieOrShowDetail());
     };
@@ -24,7 +26,7 @@ const MovieDetail = () => {
   return (
     <div className="movie-section">
       {Object.keys(data).length === 0 ? (
-        <div>Loading......</div>
+        <Loader />
       ) : (
         <>
           <div className="section-left">
