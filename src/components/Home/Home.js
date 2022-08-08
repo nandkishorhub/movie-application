@@ -1,7 +1,7 @@
 import React from "react";
 import MovieListing from "../MovieListing/MovieListing";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   fetchMoviesAsync,
   fetchShowsAsync,
@@ -9,9 +9,12 @@ import {
 
 const Home = () => {
   const dispatch = useDispatch();
+  const movieText = "Harry";
+  const showText = "Friends";
+
   useEffect(() => {
-    dispatch(fetchMoviesAsync());
-    dispatch(fetchShowsAsync());
+    dispatch(fetchMoviesAsync(movieText));
+    dispatch(fetchShowsAsync(showText));
     // eslint-disable-next-line
   }, []);
 

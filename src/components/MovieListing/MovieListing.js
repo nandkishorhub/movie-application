@@ -1,15 +1,23 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getAllMovies, getAllShows } from "../../features/movies/movieSlice";
+import {
+  getAllMovies,
+  getAllShows,
+  getMovieStatus,
+  getShowsStatus,
+} from "../../features/movies/movieSlice";
 import MovieCard from "../MovieCard/MovieCard";
 import Slider from "react-slick";
 import settings from "../../common/settings";
+import Loader from "../Loader/Loader";
 import "./MovieListing.scss";
 
 const MovieListing = () => {
   const movies = useSelector(getAllMovies);
   const shows = useSelector(getAllShows);
-  console.log("movies", movies);
+  const movieStatus = useSelector(getMovieStatus);
+  const showsStatus = useSelector(getShowsStatus);
+
   let renderMovies,
     rednerShows = "";
   renderMovies =
@@ -19,7 +27,7 @@ const MovieListing = () => {
       })
     ) : (
       <div className="movies-error">
-        <h3>{movies.error}</h3>
+        <h3>{`${movies.Error} - Try some anoother serach name`}</h3>
       </div>
     );
 
@@ -30,21 +38,31 @@ const MovieListing = () => {
       })
     ) : (
       <div className="movies-error">
-        <h3>{shows.error}</h3>
+        <h3>{`${shows.Error} - Try some another serach name`}</h3>
       </div>
     );
+
+ 
   return (
     <div className="movie-wrapper">
       <div className="movie-list">
         <h2>Movies</h2>
         <div className="movie-container">
-          <Slider {...settings}>{renderMovies}</Slider>
+          {movieStatus === "pending" ? (
+            <Loader />
+          ) : (
+            <Slider {...settings}>{renderMovies}</Slider>
+          )}
         </div>
       </div>
       <div className="show-list">
         <h2>Shows</h2>
         <div className="show-container">
-        <Slider {...settings}>{rednerShows}</Slider>
+          {showsStatus === "pending" ? (
+            <Loader />
+          ) : (
+            <Slider {...settings}>{rednerShows}</Slider>
+          )}
         </div>
       </div>
     </div>
