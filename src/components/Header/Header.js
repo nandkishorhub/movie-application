@@ -16,9 +16,9 @@ const Header = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(fetchMoviesAsync(term));
-    dispatch(fetchShowsAsync(term));
     navigate("/");
+    dispatch(fetchMoviesAsync(term.trim()));
+    dispatch(fetchShowsAsync(term.trim()));
     setTerm("");
   };
 
